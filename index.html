@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>无相布施 · 多少随意 · 随喜赞叹</title> 
+    <title>无相布施 · 多少随意 · 随喜赞叹</title>
     <style>
         :root {
             --primary: #b8860b;
@@ -53,17 +53,6 @@
             background: var(--primary);
             border-radius: 2px;
         }
-        input {
-            width: 100%;
-            padding: 12px 16px;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            font-size: 15px;
-            outline: none;
-            background: #fafaf8;
-            transition: border-color 0.3s;
-        }
-        input:focus { border-color: var(--primary); }
         .btn {
             width: 100%;
             padding: 14px;
@@ -81,24 +70,12 @@
         .btn:active { opacity: 0.8; }
         .btn-primary { background: var(--primary); color: #fff; margin-top: 12px; }
         .btn-wechat { background: var(--wechat-green); color: #fff; margin-top: 12px; }
-        .btn-outline { 
-            background: transparent; 
-            border: 1px solid var(--primary); 
-            color: var(--primary); 
-            margin-top: 8px; 
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            margin-top: 8px;
         }
-        .code-display {
-            background: #f9f5ee;
-            border: 1px dashed var(--primary);
-            border-radius: 8px;
-            padding: 16px;
-            text-align: center;
-            margin-top: 12px;
-            display: none;
-        }
-        .code-display.show { display: block; }
-        .code-text { font-size: 24px; font-weight: bold; color: var(--primary); letter-spacing: 3px; word-break: break-all; }
-        .code-tip { font-size: 12px; color: var(--text-light); margin-top: 6px; }
         .instruction-text {
             font-size: 14px;
             color: #888;
@@ -106,30 +83,6 @@
             text-align: center;
             line-height: 1.6;
         }
-        .tier-group { display: flex; gap: 10px; margin-bottom: 12px; }
-        .tier-item {
-            flex: 1;
-            padding: 12px 8px;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s;
-            background: #fafaf8;
-        }
-        .tier-item.active { border-color: var(--primary); background: #f9f5ee; color: var(--primary); font-weight: 600; }
-        .tier-label { font-size: 13px; display: block; margin-bottom: 2px; }
-        .tier-range { font-size: 11px; color: var(--text-light); }
-        .tier-item.active .tier-range { color: var(--primary); opacity: 0.8; }
-        .result-area {
-            text-align: center;
-            margin: 15px 0;
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: var(--primary);
-            min-height: 60px;
-        }
-        .remain-times { font-size: 12px; color: var(--text-light); text-align: right; margin-top: 8px; }
         .pay-guide {
             background: #fffbe6;
             border: 1px solid #ffe58f;
@@ -163,80 +116,26 @@
 </div>
 
 <div class="container">
-    <!-- 1. 生成吉祥码 -->
+    <!-- 1. 微信随喜布施 -->
     <div class="card">
-        <div class="card-title">壹 · 生成吉祥码 (AMTF加持)</div>
+        <div class="card-title">壹 · 微信随喜布施</div>
         <p style="font-size:13px;color:#888;margin-bottom:12px;">
-            请输入身份证后3位，系统将生成吉祥码，数字将随机嵌入AMTF字母之间表示永远与AMTFo在一起，以此代替姓名参与无相布施。
+            点击下方按钮一键复制布施链接，粘到微信即可打开并完成随喜，多少随意。
         </p>
-        <input type="text" id="idInput" placeholder="请输入身份证后3位" maxlength="3" inputmode="numeric">
-        <button class="btn btn-primary" onclick="generateCode()">生成并复制吉祥码</button>
-        <div class="code-display" id="codeDisplay">
-            <div class="code-text" id="codeText"></div>
-            <div class="code-tip">嘿吉祥码生成成功啦！请进入第二步操作</div>
-        </div>
-    </div>
-
-    <!-- 2. 随喜功德金 -->
-    <div class="card">
-        <div class="card-title">贰 · 随喜功德金</div>
-        <div class="instruction-text">请点击选择三个档位并有3次机会由程序测算随机金额</div>
-        <div class="tier-group">
-            <div class="tier-item active" data-tier="small" onclick="selectTier(this)">
-                <span class="tier-label">小额</span>
-                <span class="tier-range">1 ~ 48元</span>
-            </div>
-            <div class="tier-item" data-tier="medium" onclick="selectTier(this)">
-                <span class="tier-label">中额</span>
-                <span class="tier-range">48 ~ 148元</span>
-            </div>
-            <div class="tier-item" data-tier="large" onclick="selectTier(this)">
-                <span class="tier-label">大额</span>
-                <span class="tier-range">188 ~ 488元</span>
-            </div>
-        </div>
-        <div class="remain-times">今日剩余随喜次数：<span id="remainTimes">3</span>/3</div>
-        <button class="btn btn-primary" onclick="calculateAmount()">上面选定档位，点击此处生成幸运功德金</button>
-        <div id="meritResult" class="result-area"></div>
-    </div>
-
-    <!-- 3. 微信随喜布施 -->
-    <div class="card">
-        <div class="card-title">叁 · 微信随喜布施</div>
-        <p style="font-size:13px;color:#888;margin-bottom:12px;">
-            请点击下方按钮
-        </p>
-        <button class="btn btn-wechat" onclick="copyPayInfo()">💚点此  一键复制吉祥码及布施链接并前往微信粘贴发送</button>
+        <button class="btn btn-wechat" onclick="copyPayLink()">💚 点此 一键复制布施链接并前往微信粘贴</button>
         <div class="pay-guide">
             📋 <strong>操作指引：</strong><br>
-            回到手机微信后，（这一步很多人不会），直接粘贴已经复制的内容并发送给自己或其他可信之人，在手机微信中完成支付。粘贴后会有进一步的操作指引<br>
-           
+            1. 点上方按钮，链接会自动复制到剪贴板；<br>
+            2. 回到手机微信，把复制的内容粘贴并发送给自己或家人；<br>
+            3. 点开消息里的付款链接，填写随喜金额，点「付款」即可。
         </div>
     </div>
 
-    <!-- 4. 布施动态与查询 -->
+    <!-- 2. 布施动态与查询 -->
     <div class="card">
-        <div class="card-title">肆 · 布施动态与记录查询</div>
+        <div class="card-title">贰 · 布施动态与记录查询</div>
          <a href="https://www.kdocs.cn/l/cp6HhPkTzx3G" target="_blank" class="btn btn-outline" style="text-decoration:none;">📋 请点此查看所有布施供养时间及金额记录（只显示个位数）与总账信息</a>
-        <!-- 温馨提示@：先去微信复制吉祥码 -->
-        <div style="background-color: #fffbf0; border: 1px solid #f5e6c8; border-radius: 8px; padding: 15px; margin-bottom: 20px; font-size: 14px; color: #5d4037; line-height: 1.6;">
-    <!-- 标题行：左侧虚线 + 右侧标题 -->
-    <div style="display: flex; align-items: center; margin-bottom: 10px;">
-        <div style="flex-grow: 1; height: 1px; background-image: linear-gradient(to right, #d4a373 50%, transparent 50%); background-size: 10px 1px; background-repeat: repeat-x; opacity: 0.6;"></div>
-        <span style="margin-left: 10px; font-weight: bold; color: #b45309; font-size: 16px;">📌 温馨提示@：</span>
-    </div>
-
-    <!-- 正文内容 -->
-    <div style="padding-left: 5px;">
-        <p style="margin: 0 0 10px 0;">
-            查询下面个人布施记录前，请先打开手机微信聊天记录，找到那个带“#”的<strong>专属吉祥码</strong>（格式如 <span style="background:#eee; padding:2px 5px; border-radius:4px; font-family:monospace;">#9A3M7T2F5</span>），<strong>长按复制</strong>就可以了。
-        </p>
-        <p style="margin: 0; color: #d97706; font-weight: 500;">
-            **没有您的吉祥码将无法查询到您的布施信息哦！
-        </p>
-    </div>
-</div>
-<a href="https://www.kdocs.cn/etapps/query/q/L1VydR7C" target="_blank" class="btn btn-outline" style="text-decoration:none;">🔍 查询布施记录（仅查询您个人的信息，极个别有与他人重码，请对照其他信息判断）</a>        
+<a href="https://www.kdocs.cn/etapps/query/q/L1VydR7C" target="_blank" class="btn btn-outline" style="text-decoration:none;">🔍 查询布施记录（仅查询您个人的信息）</a>
       <!-- 布施动态展示区域 start -->
 <div class="content-section" style="margin-top:12px;">
     <div id="donation-display">
@@ -340,17 +239,16 @@ function toggleDetail(id) {
 <!-- 布施动态展示区域 end -->
     </div>
 
-    <!-- 5. 关于无相布施 -->
+    <!-- 3. 关于无相布施 -->
     <div class="card">
-        <div class="card-title">伍 · 关于无相布施</div>
+        <div class="card-title">叁 · 关于无相布施</div>
         <div class="content-section">
             <h3>🙏 什么是无相布施？</h3>
             <p>《金刚经》云："菩萨于法，应无所住行于布施。"无相布施即不执着于施者、受者、所施之物三轮体空之相，以清净心行善，功德最为殊胜。</p>
             <h3>📌 参与方式</h3>
-            <p>1. 生成专属吉祥码作为匿名标识<br>
-               2. 随喜功德金额，随心而行<br>
-               3. 复制布施信息，在微信备注中粘贴<br>
-               4. 凭吉祥码查询个人功德记录</p>
+            <p>1. 一键复制布施链接<br>
+               2. 在微信中打开链接，随喜功德，多少随意<br>
+               3. 在本页查看布施动态与总账</p>
             <h3>✨ 功德回向</h3>
             <p>愿以此功德，普及于一切。我等与众生，同生极乐国。祈愿世界和平、国泰民安、众生离苦得乐，毕竟成佛。</p>
         </div>
@@ -362,42 +260,14 @@ function toggleDetail(id) {
 
 <script>
     // ========== 配置项（按需修改） ==========
-    const PAY_NOTE = '#布施:愿力释凡提(amtfjwz)/放生功德款收款/001';
     // ⚠️ 请替换为实际部署的GitHub Pages地址
-    const SITE_URL = 'https://zhushengsi.github.io/wuxiang-bushi/';
+    const SITE_URL = 'https://zhushengsi.github.io/wuxiang-fangsheng-and-futian/';
     // 微信支付链接（隐藏，仅复制到剪贴板）
     const WECHAT_PAY_LINK = '#付款:愿力释凡提(amtfjwz)/放生功德款收款/001';
     // 页面显示的操作指引文案（与复制到剪贴板的第2行保持一致）
-   const GUIDE_TEXT = '【操作指引】\n请长按前面带 "# "号 的含有"AMTF"加持的无相布施吉祥码，出现提示后点"复，\n再点击下面带"# "字的微信付款链接，\n在付款金额的下方将"吉祥码"填入无相布施吉祥码粘贴，\n将您原来选定的金额填入上方的，\n点击最下方"付款"。';
+    const GUIDE_TEXT = '【操作指引】\n1. 长按下方带 "#" 号的微信付款链接，出现提示后点"复制"；\n2. 打开手机微信，把复制的内容粘贴并发送给自己或家人；\n3. 点开消息里的付款链接，填写想随喜的金额，点击最下方"付款"即可。';
     // 提示语2
-    const TIP2_TEXT = '\n\n-----------------------\n-----------------------请您下次点击此无相布施链接，即可快速回到布施页面继续随喜功德。\n24小时后可以去此链接用吉祥码查看布施供养信息。';
-
-    // ========== 状态管理 ==========
-    const STORAGE_KEY = 'wuxiang_bushi_data';
-    let state = loadState();
-
-    function loadState() {
-        try {
-            const saved = localStorage.getItem(STORAGE_KEY);
-            if (saved) {
-                const parsed = JSON.parse(saved);
-                const today = new Date().toDateString();
-                if (parsed.date !== today) {
-                    return { date: today, remainTimes: 3, code: '', amount: 0, tier: 'small' };
-                }
-                return parsed;
-            }
-        } catch(e) {}
-        return { date: new Date().toDateString(), remainTimes: 3, code: '', amount: 0, tier: 'small' };
-    }
-
-    function saveState() {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-    }
-
-    // ========== 测算状态（文件1的显示方式） ==========
-    let attempts = 0;
-    let history = [];
+    const TIP2_TEXT = '\n\n-----------------------\n-----------------------收藏此无相布施链接，下次点击即可快速回到布施页面继续随喜功德。\n布施供养信息可在本页下方查看。';
 
     // ========== Toast ==========
     function showToast(msg) {
@@ -407,117 +277,18 @@ function toggleDetail(id) {
         setTimeout(() => t.classList.remove('show'), 3000);
     }
 
-    // ========== 1. 生成吉祥码 (AMTF顺序固定 + 5数字随机嵌入5个间隙) ==========
-    function generateCode() {
-        const input = document.getElementById('idInput').value.trim();
-        if (!/^\d{3}$/.test(input)) {
-            showToast('请输入正确的身份证后3位数字');
-            return;
-        }
-
-        // Step1: 身份证后3位随机打乱顺序
-        const digits = input.split('');
-        for (let i = digits.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [digits[i], digits[j]] = [digits[j], digits[i]];
-        }
-
-        // Step2: 增加2位随机数字，共5个数字
-        const extraDigit1 = String(Math.floor(Math.random() * 10));
-        const extraDigit2 = String(Math.floor(Math.random() * 10));
-        const allDigits = [...digits, extraDigit1, extraDigit2];
-
-        // Step3: AMTF四个字母顺序固定，共有5个可插入间隙：_A_M_T_F_
-        // 5个数字对应5个间隙，每个间隙恰好放1个数字
-        const slots = [0, 1, 2, 3, 4];
-        // 从5个间隙中随机选5个位置（即全部选中），但打乱分配顺序
-        const shuffledSlots = slots.sort(() => Math.random() - 0.5);
-        
-        // 构建结果：间隙索引0-4对应数组位置0,2,4,6,8；字母固定在1,3,5,7
-        const result = new Array(9).fill('');
-        result[1] = 'A';
-        result[3] = 'M';
-        result[5] = 'T';
-        result[7] = 'F';
-        
-        const slotToIndex = [0, 2, 4, 6, 8];
-        for (let d = 0; d < allDigits.length; d++) {
-            const slotIdx = shuffledSlots[d];
-            result[slotToIndex[slotIdx]] = allDigits[d];
-        }
-
-        const code = result.join('');
-        state.code = code;
-        saveState();
-
-        // 显示吉祥码
-        const codeTextEl = document.getElementById('codeText');
-        const codeDisplayEl = document.getElementById('codeDisplay');
-        if (codeTextEl) codeTextEl.textContent = code;
-        if (codeDisplayEl) codeDisplayEl.classList.add('show');
-
-        // 复制到剪贴板（带#号）
-        navigator.clipboard.writeText('#' + code).then(() => {
-            showToast('✅ 嘿，吉祥码已生成啦：' + code);
-        }).catch(() => {
-            showToast('✅ 吉祥码已生成：' + code + '（请长按手动复制）');
-        });
-    }
-
-    // ========== 2. 档位选择 & 随喜 ==========
-    function selectTier(el) {
-        document.querySelectorAll('.tier-item').forEach(i => i.classList.remove('active'));
-        el.classList.add('active');
-        state.tier = el.dataset.tier;
-        saveState();
-        // 切换档位时重置测算显示
-        attempts = 0;
-        history = [];
-        document.getElementById('meritResult').innerHTML = '';
-    }
-
-    function calculateAmount() {
-        if (state.remainTimes <= 0) {
-            showToast('今日随喜次数已用完，明日再来吧');
-            return;
-        }
-        const ranges = { small: [1, 48], medium: [48, 148], large: [188, 488] };
-        const [min, max] = ranges[state.tier];
-        const amount = Math.floor(Math.random() * (max - min + 1)) + min;
-
-        // 使用文件1的显示方式
-        history.push(amount);
-        attempts++;
-        state.remainTimes--;
-        saveState();
-
-        const avg = Math.round(history.reduce((a, b) => a + b, 0) / history.length);
-        const resultDiv = document.getElementById('meritResult');
-        let html = `<div>第 ${attempts} 次测算：¥ ${amount}</div>`;
-        if (attempts > 1) html += `<div style="font-size:0.9rem; margin-top:5px; color:#666;">当前平均值参考：¥ ${avg}</div>`;
-        if (attempts === 3) html += `<div style="color:red; font-size:0.8rem; margin-top:5px;">测算结束，请随喜功德</div>`;
-        resultDiv.innerHTML = html;
-
-        document.getElementById('remainTimes').textContent = state.remainTimes;
-    }
-
-    // ========== 3. 复制5行组合内容 ==========
-    function copyPayInfo() {
-        if (!state.code) {
-            showToast('⚠️ 请先生成吉祥码再操作');
-            return;
-        }
-        // 5行组合：吉祥码 → 操作指引 → 微信支付链接 → 提示语2 → GitHub静态链接
+    // ========== 一键复制布施链接 ==========
+    function copyPayLink() {
+        // 组合：操作指引 → 微信支付链接 → 提示语2 → GitHub静态链接
         const fullText = [
-            '#' + state.code,
             GUIDE_TEXT,
             '💳 微信布施链接：' + WECHAT_PAY_LINK,
             TIP2_TEXT,
             '🔗 ' + SITE_URL
         ].join('\n');
-        
+
         navigator.clipboard.writeText(fullText).then(() => {
-            showToast('✅ 吉祥码及布施链接已复制\n请去微信中粘贴发送给自己或家属等');
+            showToast('✅ 布施链接已复制\n请去微信中粘贴发送给自己或家属等');
         }).catch(() => {
             // 降级方案
             const textarea = document.createElement('textarea');
@@ -528,37 +299,13 @@ function toggleDetail(id) {
             textarea.select();
             try {
                 document.execCommand('copy');
-                showToast('✅ 吉祥码及布施链接已复制\n请去微信中粘贴发送给自己或家属等');
+                showToast('✅ 布施链接已复制\n请去微信中粘贴发送给自己或家属等');
             } catch(e) {
-                showToast('❌ 复制失败，请手动复制吉祥码');
+                showToast('❌ 复制失败，请长按手动复制');
             }
             document.body.removeChild(textarea);
         });
     }
-
-    // ========== 初始化恢复状态 ==========
-    window.addEventListener('DOMContentLoaded', () => {
-        document.getElementById('remainTimes').textContent = state.remainTimes;
-        if (state.code) {
-            document.getElementById('codeText').textContent = state.code;
-            document.getElementById('codeDisplay').classList.add('show');
-        }
-        // 恢复测算显示（如果有历史数据）
-        if (state.amount > 0) {
-            attempts = 3 - state.remainTimes;
-            // 重建历史数组（仅包含最后一次金额）
-            history = [state.amount];
-            const avg = Math.round(history.reduce((a, b) => a + b, 0) / history.length);
-            const resultDiv = document.getElementById('meritResult');
-            let html = `<div>第 ${attempts} 次测算：¥ ${state.amount}</div>`;
-            if (attempts > 1) html += `<div style="font-size:0.9rem; margin-top:5px; color:#666;">当前平均值参考：¥ ${avg}</div>`;
-            if (attempts === 3) html += `<div style="color:red; font-size:0.8rem; margin-top:5px;">测算结束，请随喜功德</div>`;
-            resultDiv.innerHTML = html;
-        }
-        document.querySelectorAll('.tier-item').forEach(i => {
-            i.classList.toggle('active', i.dataset.tier === state.tier);
-        });
-    });
 </script>
 
 </body>
