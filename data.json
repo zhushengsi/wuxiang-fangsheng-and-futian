@@ -43,12 +43,21 @@
     "images": [],
     "files": [
       {
-        "path": ""D:\wechat files\WeChat Files\wxid_ggmzkmdw394h22\FileStorage\xwechat_files\wxid_ggmzkmdw394h22_1dcc\msg\file\2026-11\5（打码处理查询）-放生功德款收款 明细(1).pdf"
-        "name": "5（打码处理查询）-放生功德款收款 明细(1).pdf",
-        "type": "pdf"
-      }
+        {
+    "item": "布施分类打码查询",
+    "time": "2026-11-20 11:30",
+    "amount": "17779.35",
+    "count": 167,
+    "summary": "无相布施金额分类。",
+    "images": [],
+    "files": [
+        {
+            "path": "files/5（打码处理查询）-无相布施功德款明细(1).pdf",
+            "name": "功德款收款明细查询",
+            "type": "pdf"
+        }
     ]
-  },
+},
   {
     "item": "后续记录",
     "group_name": "第二组（带(4)(5)(6)后缀图片）",
