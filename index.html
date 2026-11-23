@@ -214,17 +214,31 @@ fetch('data.json')
 
       // 1. 构建图片区域（适配 images 数组多张图）
       let imgHtml = '';
-      if (item.images && Array.isArray(item.images) && item.images.length > 0) {
-        imgHtml += `<div class="img-group">`;
-        item.images.forEach(src=>{
-          imgHtml += `
+// 渲染图片
+if (item.images && Array.isArray(item.images) && item.images.length > 0) {
+    imgHtml += `<div class="img-group">`;
+    item.images.forEach(src=>{
+        imgHtml += `
             <img src="${src}" 
                  alt="布施动态" 
                  onerror="this.onerror=null; this.src='${FALLBACK_IMG}';">
-          `;
-        })
-        imgHtml += `</div>`;
-      }
+        `;
+    })
+    imgHtml += `</div>`;
+}
+// 渲染PDF附件下载
+if (item.files && Array.isArray(item.files) && item.files.length > 0) {
+    imgHtml += `<div style="margin-top:15px; padding:10px; background:#f7f7f7; border-radius:8px;">`;
+    item.files.forEach(file=>{
+        imgHtml += `
+            <a href="${file.path}" target="_blank" style="display:block; padding:6px 0; color:#b8860b; text-decoration:none;">
+                📄 ${file.name}
+            </a>
+        `;
+    })
+    imgHtml += `</div>`;
+}
+
 
       // 2. 构建详情页内容（默认隐藏）
       const detailsContent = `
@@ -324,4 +338,5 @@ function copyPayLink() {
 
 </body>
 </html>
+
 
