@@ -9,7 +9,8 @@
       "images/img01.jpg",
       "images/img02.jpg",
       "images/img03.jpg"
-    ]
+    ],
+    "files": []
   },
   {
     "item": "供僧斋食",
@@ -19,7 +20,8 @@
     "summary": "供僧斋食，功德无量，随喜赞叹。",
     "images": [
       "images/2026-11-15_1130.jpg"
-    ]
+    ],
+    "files": []
   },
   {
     "item": "悦莲素斋",
@@ -31,7 +33,8 @@
       "images/img04.jpg",
       "images/img05.jpg",
       "images/img06.jpg"
-    ]
+    ],
+    "files": []
   },
   {
     "item": "布施分类打码查询",
@@ -39,6 +42,7 @@
     "amount": "17779.35",
     "count": 167,
     "summary": "无相布施金额分类。",
+    "images": [],
     "files": [
       {
         "path": "files/资料.pdf",
