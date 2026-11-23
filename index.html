@@ -106,6 +106,29 @@
         }
         .toast.show { opacity: 1; }
         .footer { text-align: center; padding: 20px; font-size: 12px; color: #bbb; }
+        /* 布施动态内部卡片样式 */
+        .donation-card {
+            margin-bottom: 20px;
+            background:#fff;
+            border:1px solid #eee;
+            border-radius:8px;
+            padding:15px;
+            cursor:pointer;
+        }
+        .img-group{
+            margin-top:15px;
+            display:flex;
+            flex-wrap:wrap;
+            gap:10px;
+            justify-content:center;
+        }
+        .img-group img{
+            max-width:220px;
+            max-height:220px;
+            border-radius:8px;
+            box-shadow:0 2px 5px rgba(0,0,0,0.1);
+            object-fit:contain;
+        }
     </style>
 </head>
 <body>
@@ -116,7 +139,7 @@
 </div>
 
 <div class="container">
-    <!-- 1. 微信随喜布施 -***提示：此活动已经结束，布施通道关闭->
+    <!-- 1. 微信随喜布施 - 通道关闭 -->
     <div class="card">
         <div class="card-title">壹 · 微信随喜布施</div>
         <p style="font-size:13px;color:#888;margin-bottom:12px;">
@@ -127,22 +150,52 @@
             📋 <strong>操作指引：</strong><br>
             1. 点上方按钮，链接会自动复制到剪贴板；<br>
             2. 回到手机微信，把复制的内容粘贴并发送给自己或家人；<br>
-            3. 点开消息里的付款链接，根据提示分项目（有三个项目，可都填或选填)填写想随喜的金额（可不写整数，建议用整数加小数如13.23（后两位小数可从电话号码或身份证后4位中选取填写，这样根据金额可基本识别自己所捐已经入账），捐款金额下方有“无相布施吉祥码”填写并记住后可用于查找自己的布施明细（建议写自己身份证后4位或电话号码其中任意4位,或任意4位数），填写完毕后点击最下方"付款"即可。';
+            3. 点开消息里的付款链接，根据提示分项目（有三个项目，可都填或选填)填写想随喜的金额（可不写整数，建议用整数加小数如13.23（后两位小数可从电话号码或身份证后4位中选取填写，这样根据金额可基本识别自己所捐已经入账），捐款金额下方有“无相布施吉祥码”填写并记住后可用于查找自己的布施明细（建议写自己身份证后4位或电话号码其中任意4位,或任意4位数），填写完毕后点击最下方"付款"即可。
         </div>
     </div>
 
     <!-- 2. 布施动态与查询 -->
     <div class="card">
         <div class="card-title">贰 · 布施动态与记录查询new</div>
-         <a href="https://www.kdocs.cn/etapps/query/q/7Z0rnZAr"target="_blank" class="btn btn-outline" style="text-decoration:none;">📋 **可以查询啦！！！请点此查看所有布施供养的时间及金额记录与总账信息（如果您的吉祥码与别人相同可能会同时显示，需要其他信息鉴别）</a>
-<a href="https://www.kdocs.cn/etapps/query/q/7Z0rnZAr" target="_blank" class="btn btn-outline" style="text-decoration:none;">🔍 查询布施记录（仅查询您个人的信息）</a>
-      <!-- 布施动态展示区域 start -->
-<div class="content-section" style="margin-top:12px;">
-    <div id="donation-display">
-        <p style="text-align:center; color:#888;">正在加载最新动态...</p>
+        <a href="https://www.kdocs.cn/etapps/query/q/7Z0rnZAr" target="_blank" class="btn btn-outline" style="text-decoration:none;">📋 <strong>可以查询啦！！！</strong>请点此查看所有布施供养的时间及金额记录与总账信息（如果您的吉祥码与别人相同可能会同时显示，需要其他信息鉴别）</a>
+        <a href="https://www.kdocs.cn/etapps/query/q/7Z0rnZAr" target="_blank" class="btn btn-outline" style="text-decoration:none;">🔍 查询布施记录（仅查询您个人的信息）</a>
+        <!-- 布施动态展示区域 start -->
+        <div class="content-section" style="margin-top:12px;">
+            <div id="donation-display">
+                <p style="text-align:center; color:#888;">正在加载最新动态...</p>
+            </div>
+        </div>
+        <!-- 布施动态展示区域 end -->
+    </div>
+
+    <!-- 3. 关于无相布施 -->
+    <div class="card">
+        <div class="card-title">叁 · 关于无相布施</div>
+        <div class="content-section">
+            <h3>🙏 什么是无相布施？</h3>
+            <p>《金刚经》云："菩萨于法，应无所住行于布施。"无相布施即不执着于施者、受者、所施之物三轮体空之相，以清净心行善，功德最为殊胜。</p>
+            <h3>📌 参与方式</h3>
+            <p>1. 一键复制布施链接<br>
+               2. 在微信中打开链接，随喜功德，多少随意<br>
+               3. 在本页查看布施动态与总账</p>
+            <h3>✨ 功德回向</h3>
+            <p>愿以此功德，普及于一切。我等与众生，同生极乐国。祈愿世界和平、国泰民安、众生离苦得乐，毕竟成佛。</p>
+        </div>
     </div>
 </div>
+
+<div class="footer">无相布施 · 三轮体空 · 功德无量</div>
+<div class="toast" id="toast"></div>
+
 <script>
+// 切换展开收起函数（提前定义）
+function toggleDetail(id) {
+  const detailDiv = document.getElementById(id);
+  if (detailDiv) {
+    detailDiv.style.display = (detailDiv.style.display === 'none') ? 'block' : 'none';
+  }
+}
+
 // 自动加载 data.json 并渲染页面
 fetch('data.json')
   .then(response => {
@@ -159,21 +212,19 @@ fetch('data.json')
       // 生成唯一的 ID，用于控制折叠
       const detailId = `detail-${index}`;
 
-      // ========== 这里是修改后的图片部分 ==========
+      // 1. 构建图片区域（适配 images 数组多张图）
       let imgHtml = '';
       if (item.images && Array.isArray(item.images) && item.images.length > 0) {
-        imgHtml += `<div style="margin-top:15px; display:flex; flex-wrap:wrap; gap:10px; justify-content:center;">`;
+        imgHtml += `<div class="img-group">`;
         item.images.forEach(src=>{
           imgHtml += `
             <img src="${src}" 
                  alt="布施动态" 
-                 style="max-width:220px; max-height:220px; border-radius:8px; box-shadow:0 2px 5px rgba(0,0,0,0.1); object-fit:contain;" 
                  onerror="this.onerror=null; this.src='${FALLBACK_IMG}';">
           `;
         })
         imgHtml += `</div>`;
       }
-      // ==========================================
 
       // 2. 构建详情页内容（默认隐藏）
       const detailsContent = `
@@ -186,9 +237,9 @@ fetch('data.json')
         </div>
       `;
 
-      // 3. 构建主卡片（始终显示核心数据）
+      // 3. 构建主卡片
       html += `
-        <div class="card" style="margin-bottom: 20px; background:#fff; border:1px solid #eee; border-radius:8px; padding:15px; cursor:pointer;" onclick="toggleDetail('${detailId}')">
+        <div class="donation-card" onclick="toggleDetail('${detailId}')">
           
           <!-- 头部：点击提示 -->
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
@@ -228,86 +279,48 @@ fetch('data.json')
     console.error('Error:', err);
   });
 
-// 切换展开收起函数
-function toggleDetail(id) {
-  const detailDiv = document.getElementById(id);
-  if (detailDiv) {
-    detailDiv.style.display = (detailDiv.style.display === 'none') ? 'block' : 'none';
-  }
+// ========== 配置项（按需修改） ==========
+const SITE_URL = 'https://zhushengsi.github.io/wuxiang-fangsheng-and-futian/';
+const WECHAT_PAY_LINK = '#付款:愿力释凡提(amtfjwz)/放生功德款收款/001';
+const GUIDE_TEXT = '【操作指引】\n1. 长按下方带 "#" 号的微信付款链接，出现提示后点"复制"；\n2. 打开手机微信，把复制的内容粘贴并发送给自己或家人；\n3. 点开消息里的付款链接，分项目填写想随喜的金额（可不写整数，也不写50，100，用48.23（后两位小数可从电话号码或身份证后4位填写，这样根据金额可识别自己所捐已经入账），捐款金额下方有“无相布施吉祥码”填写并记住后可用于查找自己的布施明细（建议写自己身份证后4位或电话号码其中任意4位），填写完毕后点击最下方"付款"即可。';
+const TIP2_TEXT = '\n\n-----------------------\n-----------------------收藏此无相布施链接，下次点击即可快速回到布施页面继续随喜功德。\n布施供养信息可在本页下方查看。';
+
+// ========== Toast ==========
+function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 3000);
 }
-</script>
 
+// ========== 一键复制布施链接 ==========
+function copyPayLink() {
+    const fullText = [
+        GUIDE_TEXT,
+        '💳 微信布施链接：' + WECHAT_PAY_LINK,
+        TIP2_TEXT,
+        '🔗 ' + SITE_URL
+    ].join('\n');
 
-    <!-- 3. 关于无相布施 -->
-    <div class="card">
-        <div class="card-title">叁 · 关于无相布施</div>
-        <div class="content-section">
-            <h3>🙏 什么是无相布施？</h3>
-            <p>《金刚经》云："菩萨于法，应无所住行于布施。"无相布施即不执着于施者、受者、所施之物三轮体空之相，以清净心行善，功德最为殊胜。</p>
-            <h3>📌 参与方式</h3>
-            <p>1. 一键复制布施链接<br>
-               2. 在微信中打开链接，随喜功德，多少随意<br>
-               3. 在本页查看布施动态与总账</p>
-            <h3>✨ 功德回向</h3>
-            <p>愿以此功德，普及于一切。我等与众生，同生极乐国。祈愿世界和平、国泰民安、众生离苦得乐，毕竟成佛。</p>
-        </div>
-    </div>
-</div>
-
-<div class="footer">无相布施 · 三轮体空 · 功德无量</div>
-<div class="toast" id="toast"></div>
-
-<script>
-    // ========== 配置项（按需修改） ==========
-    // ⚠️ 请替换为实际部署的GitHub Pages地址
-    const SITE_URL = 'https://zhushengsi.github.io/wuxiang-fangsheng-and-futian/';
-    // 微信支付链接（隐藏，仅复制到剪贴板）
-    const WECHAT_PAY_LINK = '#付款:愿力释凡提(amtfjwz)/放生功德款收款/001';
-    // 页面显示的操作指引文案（与复制到剪贴板的第2行保持一致）
-    const GUIDE_TEXT = '【操作指引】\n1. 长按下方带 "#" 号的微信付款链接，出现提示后点"复制"；\n2. 打开手机微信，把复制的内容粘贴并发送给自己或家人；\n3. 点开消息里的付款链接，分项目填写想随喜的金额（可不写整数，也不写50，100，用48.23（后两位小数可从电话号码或身份证后4位填写，这样根据金额可识别自己所捐已经入账），捐款金额下方有“无相布施吉祥码”填写并记住后可用于查找自己的布施明细（建议写自己身份证后4位或电话号码其中任意4位），填写完毕后点击最下方"付款"即可。';
-    // 提示语2
-    const TIP2_TEXT = '\n\n-----------------------\n-----------------------收藏此无相布施链接，下次点击即可快速回到布施页面继续随喜功德。\n布施供养信息可在本页下方查看。';
-
-    // ========== Toast ==========
-    function showToast(msg) {
-        const t = document.getElementById('toast');
-        t.textContent = msg;
-        t.classList.add('show');
-        setTimeout(() => t.classList.remove('show'), 3000);
-    }
-
-    // ========== 一键复制布施链接 ==========
-    function copyPayLink() {
-        // 组合：操作指引 → 微信支付链接 → 提示语2 → GitHub静态链接
-        const fullText = [
-            GUIDE_TEXT,
-            '💳 微信布施链接：' + WECHAT_PAY_LINK,
-            TIP2_TEXT,
-            '🔗 ' + SITE_URL
-        ].join('\n');
-
-        navigator.clipboard.writeText(fullText).then(() => {
+    navigator.clipboard.writeText(fullText).then(() => {
+        showToast('✅ 布施链接已复制\n请去微信中粘贴发送给自己或家属等');
+    }).catch(() => {
+        const textarea = document.createElement('textarea');
+        textarea.value = fullText;
+        textarea.style.position = 'fixed';
+        textarea.style.opacity = '0';
+        document.body.appendChild(textarea);
+        textarea.select();
+        try {
+            document.execCommand('copy');
             showToast('✅ 布施链接已复制\n请去微信中粘贴发送给自己或家属等');
-        }).catch(() => {
-            // 降级方案
-            const textarea = document.createElement('textarea');
-            textarea.value = fullText;
-            textarea.style.position = 'fixed';
-            textarea.style.opacity = '0';
-            document.body.appendChild(textarea);
-            textarea.select();
-            try {
-                document.execCommand('copy');
-                showToast('✅ 布施链接已复制\n请去微信中粘贴发送给自己或家属等');
-            } catch(e) {
-                showToast('❌ 复制失败，请长按手动复制');
-            }
-            document.body.removeChild(textarea);
-        });
-    }
+        } catch(e) {
+            showToast('❌ 复制失败，请长按手动复制');
+        }
+        document.body.removeChild(textarea);
+    });
+}
 </script>
 
 </body>
 </html>
-
-
