@@ -159,20 +159,23 @@ fetch('data.json')
       // 生成唯一的 ID，用于控制折叠
       const detailId = `detail-${index}`;
 
-      // 1. 构建图片区域（默认隐藏）
+      // ========== 这里是修改后的图片部分 ==========
       let imgHtml = '';
-      if (item.image) {
-        imgHtml = `
-          <div style="margin-top:15px; text-align:center;">
-            <img src="${item.image}" 
+      if (item.images && Array.isArray(item.images) && item.images.length > 0) {
+        imgHtml += `<div style="margin-top:15px; display:flex; flex-wrap:wrap; gap:10px; justify-content:center;">`;
+        item.images.forEach(src=>{
+          imgHtml += `
+            <img src="${src}" 
                  alt="布施动态" 
-                 style="width:100%; max-width:600px; border-radius:8px; box-shadow:0 2px 5px rgba(0,0,0,0.1);" 
+                 style="max-width:220px; max-height:220px; border-radius:8px; box-shadow:0 2px 5px rgba(0,0,0,0.1); object-fit:contain;" 
                  onerror="this.onerror=null; this.src='${FALLBACK_IMG}';">
-          </div>`;
+          `;
+        })
+        imgHtml += `</div>`;
       }
+      // ==========================================
 
       // 2. 构建详情页内容（默认隐藏）
-      // 这里包含了图片和详细摘要
       const detailsContent = `
         <div id="${detailId}" style="display:none; margin-top:15px; border-top:1px dashed #eee; padding-top:15px;">
           ${imgHtml}
@@ -205,17 +208,14 @@ fetch('data.json')
             </tr>
             <tr>
               <td style="padding:10px; color:#666;">💰 布施供养金额</td>
-              <!-- 直接显示金额，不再脱敏 -->
               <td style="padding:10px; color:#d9534f; font-weight:bold; font-size:16px;">￥${item.amount}</td>
             </tr>
             <tr>
               <td style="padding:10px; color:#666;">🔢 总共收到笔数</td>
-              <!-- 直接显示笔数 -->
               <td style="padding:10px; font-weight:bold; color:#333;">${item.count} 笔记账</td>
             </tr>
           </table>
 
-          <!-- 隐藏的详情区域 -->
           ${detailsContent}
         </div>
       `;
@@ -228,20 +228,15 @@ fetch('data.json')
     console.error('Error:', err);
   });
 
-// 定义切换显示/隐藏的函数
+// 切换展开收起函数
 function toggleDetail(id) {
   const detailDiv = document.getElementById(id);
   if (detailDiv) {
-    if (detailDiv.style.display === 'none') {
-      detailDiv.style.display = 'block';
-    } else {
-      detailDiv.style.display = 'none';
-    }
+    detailDiv.style.display = (detailDiv.style.display === 'none') ? 'block' : 'none';
   }
 }
 </script>
-<!-- 布施动态展示区域 end -->
-    </div>
+
 
     <!-- 3. 关于无相布施 -->
     <div class="card">
@@ -314,4 +309,5 @@ function toggleDetail(id) {
 
 </body>
 </html>
+
 
