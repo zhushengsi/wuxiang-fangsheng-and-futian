@@ -5,7 +5,10 @@
     "amount": "7749.65",
     "count": 65,
     "summary": "放生就是给自己的未来开路，放众生就是放自己",
-    "image": "images/2026-11-19_1000.jpg"
+    "images": [
+      "images/img01.jpg",
+      "images/img02.jpg",
+      "images/img03.jpg"
   },
   {
      "item"："供僧斋食"
@@ -21,7 +24,11 @@
     "amount": "总共收款1988.81￥，实付1265.00￥，转移余款至放生：723.81",
     "count": 45,
     "summary": "悦莲素食，也是放生，随喜赞叹。",
-    "image": "images/2026-11-15_1130.jpg"
+   "images": [
+      "images/img04.jpg",
+      "images/img05.jpg",
+      "images/img06.jpg"
+     ],
   },
   {
     "item"："布施分类打码查询"
@@ -29,6 +36,21 @@
     "amount": "17779.35",
     "count": 167,
     "summary": "无相布施金额分类。",
-    "image": "images/2026-11-20_1130.jpg"
+    "files": [
+   {
+      "path": "doc/资料.pdf",
+      "name": "放生仪轨.pdf",
+      "type": "pdf"
+     ],
+    }
+    "group_name": "第二组（带(4)(5)(6)后缀图片）",
+    "time": "2026-11-16 09:20",
+    "summary": "后续记录",
+    "images": [
+      "images/img01(4).jpg",
+      "images/img01(5).jpg",
+      "images/img01(6).jpg"
+    ],
+    "files": []
   }
 ]
